@@ -6,7 +6,7 @@
 #    By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 15:08:40 by anrodri2          #+#    #+#              #
-#    Updated: 2023/02/19 17:41:52 by anrodri2         ###   ########.fr        #
+#    Updated: 2023/02/19 17:44:56 by anrodri2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ LIBFT_COMPILED = lib/libft_updated.a
 NAME = compiled
 
 #### RULES ####
-$(NAME):	 libft_comp server client move
+$(NAME):	 libft_comp server client
 
 all:		 $(NAME)
 
@@ -49,9 +49,5 @@ server:
 
 client:
 			@$(MAKE) all -C client_dir
-
-move:
-			mv server_dir/server ./
-			mv client_dir/client ./
 
 re:	fclean all

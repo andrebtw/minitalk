@@ -6,7 +6,7 @@
 #    By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 17:23:09 by anrodri2          #+#    #+#              #
-#    Updated: 2023/02/19 17:31:52 by anrodri2         ###   ########.fr        #
+#    Updated: 2023/02/19 18:51:52 by anrodri2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ CFLAGS = -Wall -Wextra -Werror
 SRC_DIR = src
 
 #### SOURCE FILES ####
-SRCS =	$(SRC_DIR)/client.c
+SRCS =	$(SRC_DIR)/client.c \
+		$(SRC_DIR)/binary_signal.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -30,7 +31,7 @@ HEADER = $(SRC_DIR)/client.h
 LIBFT_COMPILED = ../lib/libft_updated.a
 
 ### FINAL COMPILATION FILE ###
-NAME = client
+NAME = ../client
 
 #### RULES ####
 $(NAME):	$(OBJS) $(HEADER)

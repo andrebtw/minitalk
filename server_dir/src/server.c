@@ -6,7 +6,7 @@
 /*   By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 13:46:03 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/02/19 16:48:51 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/02/19 18:15:51 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(void)
 {
+	ft_printf("%d\n", (getpid()));
 	pause();
-	printf("test");
 	return (EXIT_SUCCESS);
 }

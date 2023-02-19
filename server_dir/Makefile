@@ -6,7 +6,7 @@
 #    By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 17:23:01 by anrodri2          #+#    #+#              #
-#    Updated: 2023/02/19 17:32:05 by anrodri2         ###   ########.fr        #
+#    Updated: 2023/02/19 17:44:17 by anrodri2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ HEADER = $(SRC_DIR)/server.h
 LIBFT_COMPILED = ../lib/libft_updated.a
 
 ### FINAL COMPILATION FILE ###
-NAME = server
+NAME = ../server
 
 #### RULES ####
 $(NAME):	$(OBJS) $(HEADER)

@@ -6,7 +6,7 @@
 /*   By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:07:42 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/02/19 15:07:58 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/02/19 18:51:38 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,7 @@
 /* CONSTANTS */
 # define MALLOC_FAILURE -2
 
+/* FUNCTIONS */
+int	binary_signal(int pid, char *string);
 
 #endif
