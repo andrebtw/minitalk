@@ -6,14 +6,15 @@
 /*   By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 13:46:03 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/02/17 16:48:26 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/02/19 16:48:51 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/headers.h"
+#include "server.h"
 
 int	main(void)
 {
 	pause();
+	printf("test");
 	return (EXIT_SUCCESS);
 }

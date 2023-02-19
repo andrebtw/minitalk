@@ -5,53 +5,55 @@
 #                                                     +:+ +:+         +:+      #
 #    By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/02/19 15:08:40 by anrodri2          #+#    #+#              #
-#    Updated: 2023/02/19 17:41:52 by anrodri2         ###   ########.fr        #
+#    Created: 2023/02/19 17:23:01 by anrodri2          #+#    #+#              #
+#    Updated: 2023/02/19 17:32:05 by anrodri2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #### SYSTEM ####
-.PHONY: $(NAME) all clean fclean re libft_comp server client
-
-### FLAGS ###
+.PHONY: $(NAME) all clean fclean re 
 CC = gcc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror
+
+#### DIRECTORIES ####
+SRC_DIR = src
+
+#### SOURCE FILES ####
+SRCS =	$(SRC_DIR)/server.c
+
+OBJS = $(SRCS:.c=.o)
+
+HEADER = $(SRC_DIR)/server.h
 
 #### LIBFT HEADER COMPILED ####
-LIBFT_COMPILED = lib/libft_updated.a
+LIBFT_COMPILED = ../lib/libft_updated.a
 
 ### FINAL COMPILATION FILE ###
-NAME = compiled
+NAME = server
 
 #### RULES ####
-$(NAME):	 libft_comp server client move
+$(NAME):	$(OBJS) $(HEADER)
+			cd .. && cd lib && $(MAKE) all
+			$(CC) $(CFLAGS) $(OBJS) $(LIBFT_COMPILED) -o $(NAME) -g3
 
-all:		 $(NAME)
+%.o: %.c	$(HEADER) Makefile
+			$(CC) $(CFLAGS) -c $< -o $@ -g3
+
+all:		$(NAME)
 
 clean:
-			@$(MAKE) clean -C lib
-			@$(MAKE) clean -C server_dir
-			@$(MAKE) clean -C client_dir
-			$(RM) client
-			$(RM) server
+			cd .. && cd lib && $(MAKE) clean
+			$(RM) $(OBJS)
 
 fclean:
-			@$(MAKE) fclean -C lib
-			@$(MAKE) fclean -C server_dir
-			@$(MAKE) fclean -C client_dir
+			cd .. && cd lib && $(MAKE) fclean
+			$(RM) $(OBJS) $(NAME)
 
-libft_comp:
-			@$(MAKE) all -C lib
+lib:
+			cd .. && cd lib && $(MAKE) re
 
-server:	
-			@$(MAKE) all -C server_dir
+bonus:
+			$(NAME)
 
-client:
-			@$(MAKE) all -C client_dir
-
-move:
-			mv server_dir/server ./
-			mv client_dir/client ./
-
-re:	fclean all
+re:	fclean $(NAME)
