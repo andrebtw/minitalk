@@ -6,7 +6,7 @@
 /*   By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 18:48:58 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/02/19 19:04:41 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:25:52 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,19 @@ int	send_byte(int pid, char c)
 	{
 		if (kill(pid, SIGUSR1) == -1)
 			return (EXIT_FAILURE);
+		i++;
+	}
+	return (EXIT_SUCCESS);
+}
+
+int	string_loop(int pid, char *string)
+{
+	int	i;
+
+	i = 0;
+	while (string[i])
+	{
+		send_byte(pid, string[i]);
 		i++;
 	}
 	return (EXIT_SUCCESS);

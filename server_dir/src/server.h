@@ -6,7 +6,7 @@
 /*   By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:06:25 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/02/19 15:07:10 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/02/21 11:25:55 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdlib.h>
 # include <stdio.h>
-# include <signal.h>
 # include <unistd.h>
 # include <stdarg.h>
 
