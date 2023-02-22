@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anrodri2 <anrodri2@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:06:25 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/02/21 15:12:30 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/02/22 18:19:37 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@
 # include "../../lib/libft_updated.h"
 
 /* CONSTANTS */
-# define MALLOC_FAILURE -2
+# define MALLOC_FAILURE -500
 
 #endif
