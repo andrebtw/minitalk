@@ -12,6 +12,7 @@ PRINTF_DIR = ft_printf
 
 #### SOURCE FILES ####
 SRCS = 	$(LIBFT_DIR)/ft_atoi.c \
+		$(LIBFT_DIR)/ft_atoi_bin.c \
 		$(LIBFT_DIR)/ft_strchr.c \
 		$(LIBFT_DIR)/ft_bzero.c \
 		$(LIBFT_DIR)/ft_calloc.c \
@@ -27,6 +28,7 @@ SRCS = 	$(LIBFT_DIR)/ft_atoi.c \
 		$(LIBFT_DIR)/ft_memset.c \
 		$(LIBFT_DIR)/ft_strdup.c \
 		$(LIBFT_DIR)/ft_strjoin.c \
+		$(LIBFT_DIR)/ft_strjoin_free.c \
 		$(LIBFT_DIR)/ft_strlcat.c \
 		$(LIBFT_DIR)/ft_strlen.c \
 		$(LIBFT_DIR)/ft_strncmp.c \

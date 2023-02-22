@@ -6,7 +6,7 @@
 /*   By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 15:46:40 by anrodri2          #+#    #+#             */
-/*   Updated: 2022/11/24 13:04:08 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/02/22 13:39:49 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 // Convertion //
 // atoi : Converts a string to an int
 int		ft_atoi(const char *nptr);
+int		ft_atoi_bin(const char *nptr);
 // itoa : Converts an int to an alloced string
 char	*ft_itoa(int n);
 
@@ -58,6 +59,7 @@ void	*ft_memset(void *s, int c, size_t n);
 // String manipulation //
 // strjoin : joins both strings ; ex : "hello", "world" ; value : "helloworld"
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin_free(char const *s1, char const *s2, int free_s1, int free_s2);
 // strlcat : appends src to the end of dst. 
 // It will append at most size - strlen(dst) - 1 bytes
 size_t	ft_strlcat(char *dst, const char *src, size_t size);

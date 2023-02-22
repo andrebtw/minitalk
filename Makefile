@@ -6,7 +6,7 @@
 #    By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 15:08:40 by anrodri2          #+#    #+#              #
-#    Updated: 2023/02/19 17:44:56 by anrodri2         ###   ########.fr        #
+#    Updated: 2023/02/21 14:54:38 by anrodri2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@
 ### FLAGS ###
 CC = gcc
 RM = rm -f
+
 CFLAGS = -Wall -Wextra -Werror 
 
 #### LIBFT HEADER COMPILED ####
