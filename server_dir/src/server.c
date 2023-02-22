@@ -13,36 +13,30 @@
 #include "server.h"
 #include <signal.h>
 
-int			pid_client;
+int pid_client;
 
-static void pid_recept(int sig)
-{
-	if (!pid_client)
-	{
+static void pid_recept(int sig) {
+	if (!pid_client) {
 		if (sig == SIGUSR1)
 			pid_client = (pid_client << 0) + 0;
 		else if (sig == SIGUSR2)
 			pid_client = (pid_client << 0) + 1;
-		return ;
+		return;
 	}
 	if (sig == SIGUSR1)
-			pid_client = (pid_client << 1) + 0;
+		pid_client = (pid_client << 1) + 0;
 	else if (sig == SIGUSR2)
 		pid_client = (pid_client << 1) + 1;
 }
 
-static void	psighandler(int sig)
-{
+static void psighandler(int sig) {
 	static int i;
 	// static char	*string;
 
-	if (i < 32)
-	{
+	if (i < 32) {
 		pid_recept(sig);
 		i++;
-	}
-	else if (i == 32)
-	{	
+	} else if (i == 32) {
 		// if (!string)
 		// 	string = ft_calloc(1, sizeof(char));
 		// if (!string)
@@ -50,12 +44,9 @@ static void	psighandler(int sig)
 		// 	pid_client = MALLOC_FAILURE;
 		// 	return ;
 		// }
-		if (sig == SIGUSR1)
-		{
-			write(1, "0", 1); 
-		}
-		else if (sig == SIGUSR2)
-		{
+		if (sig == SIGUSR1) {
+			write(1, "0", 1);
+		} else if (sig == SIGUSR2) {
 			write(1, "1", 1);
 		}
 	}
@@ -63,25 +54,25 @@ static void	psighandler(int sig)
 		kill(pid_client, SIGUSR1);
 }
 
-
-int	main(void)
-{
-	struct sigaction	signal;
+int main(void) {
+	struct sigaction signal;
 
 	pid_client = 0;
 	ft_printf("%d\n", (getpid()));
 	signal.sa_flags = SA_RESTART;
+	sigemptyset(&signal.sa_mask);
+	sigaddset(&signal.sa_mask, SIGUSR1);
+	sigaddset(&signal.sa_mask, SIGUSR2);
 	signal.sa_handler = &psighandler;
 	sigaction(SIGUSR1, &signal, NULL);
 	sigaction(SIGUSR2, &signal, NULL);
-	
-	while (1)
-	{
+
+	while (1) {
 		usleep(1000);
 		if (pid_client == MALLOC_FAILURE)
 			return (EXIT_FAILURE);
 		//ft_printf("%d\n", pid_client);
 	}
-	
+
 	return (EXIT_SUCCESS);
 }

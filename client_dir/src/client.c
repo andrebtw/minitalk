@@ -12,18 +12,19 @@
 
 #include "client.h"
 
-void static handler(int sig)
-{
-	(void)sig;	
+void static handler(int sig) {
+	(void) sig;
 }
 
-int	main(int argc, char **argv)
-{
-	struct sigaction	signal;
+int main(int argc, char **argv) {
+	struct sigaction signal;
 
 	//ft_printf("%d\n", (getpid()));
 	signal.sa_flags = SA_RESTART;
 	signal.sa_handler = &handler;
+	sigemptyset(&signal.sa_mask);
+	sigaddset(&signal.sa_mask, SIGUSR1);
+	sigaddset(&signal.sa_mask, SIGUSR2);
 	sigaction(SIGUSR1, &signal, NULL);
 	sigaction(SIGUSR2, &signal, NULL);
 	if (argc != 3)
