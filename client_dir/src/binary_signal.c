@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   binary_signal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anrodri2 <anrodri2@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 18:48:58 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/02/22 20:46:36 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:45:54 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "client.h"
 #define START_OF_TEXT 2
 #define END_OF_TEXT 3
+
+int print;
 
 int	send_pid(int pid_client, int byte_size, int pid)
 {
@@ -57,8 +59,9 @@ int	send_byte(int pid, char c, int byte_size, int pause_p)
 	{
 		if (kill(pid, SIGUSR1) == -1)
 			return (EXIT_FAILURE);
-		if (pause_p)
-			pause();
+		pause();
+		ft_printf("send byte first, times : %d\n", print);
+		print++;
 		byte_size++;
 	}
 	if (!c)
@@ -70,8 +73,9 @@ int	send_byte(int pid, char c, int byte_size, int pause_p)
 	if (c % 2 == 1)
 		if (kill(pid, SIGUSR2) == -1)
 			return (EXIT_FAILURE);
-	if (pause_p)
-		pause();
+	pause();
+	ft_printf("send byte last, times : %d\n", print);
+	print++;
 	return (EXIT_SUCCESS);
 }
 
@@ -93,11 +97,14 @@ int	binary_signal(int pid, char *string)
 {
 	int	pid_client;
 
+	print = 1;
 	pid_client = getpid();
 	ft_printf("%d", pid_client);
 	if (send_pid(pid_client, byte_size(pid_client), pid))
 		return (EXIT_FAILURE);
 	pause();
+	ft_printf("times : %d\n", print);
+	print++;
 	usleep(50);
 	if (send_byte(pid, 2, 2, 1) == EXIT_FAILURE)
 		return (EXIT_FAILURE);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anrodri2 <anrodri2@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 13:46:03 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/02/22 20:29:18 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:52:35 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <signal.h>
 
 int pid_client;
+int	print;
 
 static void pid_recept(int sig) {
 	if (!pid_client) {
@@ -51,13 +52,19 @@ static void psighandler(int sig) {
 		}
 	}
 	if (i == 32)
+	{
+		usleep(290);
+		ft_printf("times : %d\n", print);
 		kill(pid_client, SIGUSR1);
+		print++;
+	}
 }
 
 int main(void) {
 	struct sigaction signal;
 
 	pid_client = 0;
+	print = 1;
 	ft_printf("%d\n", (getpid()));
 	signal.sa_flags = SA_RESTART;
 	sigemptyset(&signal.sa_mask);
