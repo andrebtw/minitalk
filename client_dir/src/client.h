@@ -27,5 +27,6 @@
 
 /* FUNCTIONS */
 int	binary_signal(int pid, char *string);
+int send_byte(int pid, char c, int byte_size);
 
 #endif

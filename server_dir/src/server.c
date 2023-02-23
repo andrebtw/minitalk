@@ -13,31 +13,45 @@
 #include "server.h"
 #include <signal.h>
 
-int pid_client;
-int	print;
+int user_signal;
+int times;
 
-static void pid_recept(int sig) {
+static int pid_recept(int sig, int pid_client)
+{
 	if (!pid_client) {
 		if (sig == SIGUSR1)
 			pid_client = (pid_client << 0) + 0;
 		else if (sig == SIGUSR2)
 			pid_client = (pid_client << 0) + 1;
-		return;
+		return (pid_client);
 	}
 	if (sig == SIGUSR1)
 		pid_client = (pid_client << 1) + 0;
 	else if (sig == SIGUSR2)
 		pid_client = (pid_client << 1) + 1;
+	return (pid_client);
 }
 
-static void psighandler(int sig) {
-	static int i;
-	// static char	*string;
+static void psighandler(int sig)
+{
+	user_signal = sig;
+}
 
-	if (i < 32) {
-		pid_recept(sig);
+static int bitrecept(int sig, int pid_client)
+{
+	static int i;
+	static int j;
+
+	// static char	*string;
+	//ft_printf("CLIENT PID : %d\n", pid_client);
+	if (i < 32)
+	{
+		pid_client = pid_recept(sig, pid_client);
 		i++;
-	} else if (i == 32) {
+	}
+	else if (i >= 32)
+	{
+		j++;
 		// if (!string)
 		// 	string = ft_calloc(1, sizeof(char));
 		// if (!string)
@@ -45,26 +59,28 @@ static void psighandler(int sig) {
 		// 	pid_client = MALLOC_FAILURE;
 		// 	return ;
 		// }
-		if (sig == SIGUSR1) {
+		if (sig == SIGUSR1)
+		{
 			write(1, "0", 1);
-		} else if (sig == SIGUSR2) {
+		}
+		else if (sig == SIGUSR2)
+		{
 			write(1, "1", 1);
 		}
-	}
-	if (i == 32)
-	{
-		usleep(290);
-		ft_printf("times : %d\n", print);
+		times++;
+		ft_printf("TIMES : %d\n", times);
 		kill(pid_client, SIGUSR1);
-		print++;
 	}
+	return (pid_client);
 }
 
 int main(void) {
 	struct sigaction signal;
+	int pid_client;
 
+	user_signal = 0;
 	pid_client = 0;
-	print = 1;
+	times= 0;
 	ft_printf("%d\n", (getpid()));
 	signal.sa_flags = SA_RESTART;
 	sigemptyset(&signal.sa_mask);
@@ -74,12 +90,19 @@ int main(void) {
 	sigaction(SIGUSR1, &signal, NULL);
 	sigaction(SIGUSR2, &signal, NULL);
 
-	while (1) {
-		usleep(1000);
-		if (pid_client == MALLOC_FAILURE)
-			return (EXIT_FAILURE);
+	while (1)
+	{
+		pause();
+		pid_client = bitrecept(user_signal, pid_client);
+//		if (user_signal == SIGUSR1)
+//			ft_printf("0");
+//		else
+//			ft_printf("1");
+//		ft_printf("SIGNAL : %d\n", user_signal);
+		//ft_printf("PID : %d\n", pid_client);
+		//if (pid_client == MALLOC_FAILURE)
+		//	return (EXIT_FAILURE);
 		//ft_printf("%d\n", pid_client);
 	}
-
 	return (EXIT_SUCCESS);
 }

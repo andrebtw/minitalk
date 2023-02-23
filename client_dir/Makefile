@@ -21,7 +21,8 @@ SRC_DIR = src
 
 #### SOURCE FILES ####
 SRCS =	$(SRC_DIR)/client.c \
-		$(SRC_DIR)/binary_signal.c
+		$(SRC_DIR)/binary_signal.c \
+		$(SRC_DIR)/send_byte.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -3,21 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   binary_signal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anrodri2 <anrodri2@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/19 18:48:58 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/02/23 12:45:54 by anrodri2         ###   ########.fr       */
+/*   Created: 2023/02/23 15:28:42 by anrodri2          #+#    #+#             */
+/*   Updated: 2023/02/23 15:28:42 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "client.h"
+
 #define START_OF_TEXT 2
 #define END_OF_TEXT 3
 
-int print;
-
-int	send_pid(int pid_client, int byte_size, int pid)
-{
+int send_pid(int pid_client, int byte_size, int pid) {
 	while (byte_size != 32)
 	{
 		if (kill(pid, SIGUSR1) == -1)
@@ -38,55 +36,25 @@ int	send_pid(int pid_client, int byte_size, int pid)
 	return (EXIT_SUCCESS);
 }
 
-size_t	byte_size(int nb)
+size_t byte_size(int nb)
 {
-	size_t	counter;
+	size_t counter;
 
 	counter = 0;
-	while (nb)
-	{
+	while (nb) {
 		nb = nb / 2;
 		counter++;
 	}
 	return (counter);
 }
 
-int	send_byte(int pid, char c, int byte_size, int pause_p)
+int string_loop(int pid, char *string)
 {
-	int	number;
-
-	while (byte_size != 8)
-	{
-		if (kill(pid, SIGUSR1) == -1)
-			return (EXIT_FAILURE);
-		pause();
-		ft_printf("send byte first, times : %d\n", print);
-		print++;
-		byte_size++;
-	}
-	if (!c)
-		return (EXIT_SUCCESS);
-	send_byte(pid, c / 2, 8, pause_p);
-	if (c % 2 == 0)
-		if (kill(pid, SIGUSR1) == -1)
-			return (EXIT_FAILURE);
-	if (c % 2 == 1)
-		if (kill(pid, SIGUSR2) == -1)
-			return (EXIT_FAILURE);
-	pause();
-	ft_printf("send byte last, times : %d\n", print);
-	print++;
-	return (EXIT_SUCCESS);
-}
-
-int	string_loop(int pid, char *string)
-{
-	int	i;
+	int i;
 
 	i = 0;
-	while (string[i])
-	{
-		if (send_byte(pid, string[i], byte_size((int)string[i]), 1) == EXIT_FAILURE)
+	while (string[i]) {
+		if (send_byte(pid, string[i], byte_size((int) string[i])) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		i++;
 	}
@@ -95,22 +63,18 @@ int	string_loop(int pid, char *string)
 
 int	binary_signal(int pid, char *string)
 {
-	int	pid_client;
+	int pid_client;
 
-	print = 1;
 	pid_client = getpid();
 	ft_printf("%d", pid_client);
 	if (send_pid(pid_client, byte_size(pid_client), pid))
 		return (EXIT_FAILURE);
-	pause();
-	ft_printf("times : %d\n", print);
-	print++;
 	usleep(50);
-	if (send_byte(pid, 2, 2, 1) == EXIT_FAILURE)
+	if (send_byte(pid, 2, byte_size(2)) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (string_loop(pid, string) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	if (send_byte(pid, 3, 2, 1) == EXIT_FAILURE)
+	if (send_byte(pid, 3, byte_size(3)) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
