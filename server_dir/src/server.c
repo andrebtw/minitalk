@@ -6,7 +6,7 @@
 /*   By: anrodri2 <anrodri2@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 13:46:03 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/02/24 11:37:47 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:43:16 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <signal.h>
 
 int user_signal;
-int times;
 
 static int pid_recept(int sig, int pid_client)
 {
@@ -39,11 +38,9 @@ static void psighandler(int sig)
 
 static int bitrecept(int sig, int pid_client)
 {
-	static int i;
-	static int j;
+	static int 	i;
+	static char	*string;
 
-	// static char	*string;
-	//ft_printf("CLIENT PID : %d\n", pid_client);
 	if (i < 32)
 	{
 		pid_client = pid_recept(sig, pid_client);
@@ -51,24 +48,11 @@ static int bitrecept(int sig, int pid_client)
 	}
 	else if (i >= 32)
 	{
-		j++;
-		// if (!string)
-		// 	string = ft_calloc(1, sizeof(char));
-		// if (!string)
-		// {
-		// 	pid_client = MALLOC_FAILURE;
-		// 	return ;
-		// }
-		if (sig == SIGUSR1)
-		{
-			write(1, "0", 1);
-		}
-		else if (sig == SIGUSR2)
-		{
-			write(1, "1", 1);
-		}
-		times++;
-		ft_printf("TIMES : %d\n", times);
+		if (!string)
+			string = ft_calloc(1, sizeof(char));
+		if (!string)
+			return (MALLOC_FAILURE);
+		
 		usleep(70);
 		kill(pid_client, SIGUSR1);
 	}
@@ -95,15 +79,5 @@ int main(void) {
 	{
 		pause();
 		pid_client = bitrecept(user_signal, pid_client);
-//		if (user_signal == SIGUSR1)
-//			ft_printf("0");
-//		else
-//			ft_printf("1");
-//		ft_printf("SIGNAL : %d\n", user_signal);
-		//ft_printf("PID : %d\n", pid_client);
-		//if (pid_client == MALLOC_FAILURE)
-		//	return (EXIT_FAILURE);
-		//ft_printf("%d\n", pid_client);
-	}
 	return (EXIT_SUCCESS);
 }
