@@ -44,6 +44,7 @@ int send_list(int pid, t_bin_list *bin_lst)
 	i = 7;
 	while (i >= 0)
 	{
+		usleep(70);
 		kill_nb = kill(pid, bin_lst->list[i]);
 		if (kill_nb == -1)
 			return (EXIT_FAILURE);

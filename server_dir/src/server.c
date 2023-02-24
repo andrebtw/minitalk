@@ -6,7 +6,7 @@
 /*   By: anrodri2 <anrodri2@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 13:46:03 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/02/23 12:52:35 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:37:47 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static int bitrecept(int sig, int pid_client)
 		}
 		times++;
 		ft_printf("TIMES : %d\n", times);
+		usleep(70);
 		kill(pid_client, SIGUSR1);
 	}
 	return (pid_client);
