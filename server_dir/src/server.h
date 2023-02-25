@@ -17,11 +17,15 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <signal.h>
 
 /* HEADER FILES */
 # include "../../lib/libft_updated.h"
 
 /* CONSTANTS */
 # define MALLOC_FAILURE -500
+
+/* FUNCTIONS */
+int	check_start(int end);
 
 #endif

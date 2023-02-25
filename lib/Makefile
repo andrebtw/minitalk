@@ -29,6 +29,7 @@ SRCS = 	$(LIBFT_DIR)/ft_atoi.c \
 		$(LIBFT_DIR)/ft_strdup.c \
 		$(LIBFT_DIR)/ft_strjoin.c \
 		$(LIBFT_DIR)/ft_strjoin_free.c \
+		$(LIBFT_DIR)/ft_strjoin_free_char.c \
 		$(LIBFT_DIR)/ft_strlcat.c \
 		$(LIBFT_DIR)/ft_strlen.c \
 		$(LIBFT_DIR)/ft_strncmp.c \

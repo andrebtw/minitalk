@@ -14,13 +14,14 @@
 .PHONY: $(NAME) all clean fclean re 
 CC = gcc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror
 
 #### DIRECTORIES ####
 SRC_DIR = src
 
 #### SOURCE FILES ####
-SRCS =	$(SRC_DIR)/server.c
+SRCS =	$(SRC_DIR)/server.c \
+		$(SRC_DIR)/signal_reception.c
 
 OBJS = $(SRCS:.c=.o)
 

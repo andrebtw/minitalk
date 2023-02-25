@@ -24,6 +24,8 @@
 
 /* CONSTANTS */
 # define MALLOC_FAILURE -2
+# define SEND_START 1
+# define SEND_END 4
 
 /* FUNCTIONS */
 int	binary_signal(int pid, char *string);

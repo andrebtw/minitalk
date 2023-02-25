@@ -12,10 +12,8 @@
 
 #include "client.h"
 
-#define START_OF_TEXT 2
-#define END_OF_TEXT 3
-
-int send_pid(int pid_client, int byte_size, int pid) {
+int send_pid(int pid_client, int byte_size, int pid)
+{
 	while (byte_size != 32)
 	{
 		if (kill(pid, SIGUSR1) == -1)
@@ -53,11 +51,30 @@ int string_loop(int pid, char *string)
 	int i;
 
 	i = 0;
-	while (string[i]) {
+	while (string[i])
+	{
 		if (send_byte(pid, string[i], byte_size((int) string[i])) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		i++;
 	}
+	return (EXIT_SUCCESS);
+}
+
+static int send_first_byte(int pid)
+{
+	int i;
+
+	i = 0;
+	while (i < 7)
+	{
+		if (kill(pid, SIGUSR1) == -1)
+			return (EXIT_FAILURE);
+		usleep(1000 * 2.5);
+		i++;
+	}
+	if (kill(pid, SIGUSR2) == -1)
+		return (EXIT_FAILURE);
+	usleep(1000 * 2.5);
 	return (EXIT_SUCCESS);
 }
 
@@ -66,15 +83,16 @@ int	binary_signal(int pid, char *string)
 	int pid_client;
 
 	pid_client = getpid();
-	ft_printf("%d", pid_client);
+	ft_printf("PID : %d\n", pid_client);
+	if (send_first_byte(pid) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	usleep(2000);
 	if (send_pid(pid_client, byte_size(pid_client), pid))
 		return (EXIT_FAILURE);
 	usleep(50);
-	if (send_byte(pid, 2, byte_size(2)) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
 	if (string_loop(pid, string) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	if (send_byte(pid, 3, byte_size(3)) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+//	if (send_byte(pid, SEND_END, byte_size(SEND_END)) == EXIT_FAILURE)
+//		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

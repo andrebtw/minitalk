@@ -12,14 +12,19 @@
 
 #include "client.h"
 
-void static handler(int sig) {
-	(void) sig;
+static void	handler(int sig)
+{
+	if (sig == SIGUSR2)
+	{
+		ft_printf("Message sent successfully !\n");
+		exit(EXIT_SUCCESS);
+	}
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
 	struct sigaction signal;
 
-	//ft_printf("%d\n", (getpid()));
 	signal.sa_flags = SA_RESTART;
 	signal.sa_handler = &handler;
 	sigemptyset(&signal.sa_mask);
