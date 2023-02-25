@@ -7,6 +7,12 @@ int	check_start(int end)
 	static int i;
 	static int byte;
 
+	if (end)
+	{
+		i = 0;
+		byte = 0;
+		return (0);
+	}
 	if (!i)
 	{
 		if (user_signal == SIGUSR1)
@@ -24,11 +30,6 @@ int	check_start(int end)
 			byte = (byte << 1) + 1;
 		}
 		i++;
-	}
-	if (end)
-	{
-		i = 0;
-		byte = 0;
 	}
 	if (byte == 1 && i == 8)
 		return (1);

@@ -42,6 +42,7 @@ static int bitrecept(int sig, int pid_client)
 	static int 	i;
 	static int 	j;
 	static int	byte;
+	static char	*string;
 
 	if (i < 32)
 	{
@@ -51,10 +52,10 @@ static int bitrecept(int sig, int pid_client)
 	}
 	else if (i >= 32)
 	{
-//		if (!string)
-//			string = ft_calloc(1, sizeof(char));
-//		if (!string)
-//			return (MALLOC_FAILURE);
+		if (!string)
+			string = ft_calloc(1, sizeof(char));
+		if (!string)
+			return (MALLOC_FAILURE);
 		if (j < 8)
 		{
 			if (byte == 0)
@@ -72,7 +73,9 @@ static int bitrecept(int sig, int pid_client)
 		}
 		if (j == 8)
 		{
-			ft_printf("%c", byte - 128);
+			if (byte - 128 == 4)
+				return (ft_printf("%s", string), CLIENT_END);
+			ft_strjoin_free_char(string, (char)byte, 1);
 			byte = 0;
 			j = 0;
 		}
@@ -86,12 +89,10 @@ int main(void)
 {
 	struct sigaction signal;
 	int pid_client;
-	int byte;
 	int start;
 
 	user_signal = 0;
 	pid_client = 0;
-	byte = 0;
 	start = 0;
 	ft_printf("%d\n", (getpid()));
 	signal.sa_flags = SA_RESTART;
@@ -106,11 +107,16 @@ int main(void)
 	{
 		if (!start)
 			pause();
-		start = check_start(byte);
+		start = check_start(0);
 		if (start)
 		{
 			pause();
 			pid_client = bitrecept(user_signal, pid_client);
+		}
+		if (pid_client == CLIENT_END)
+		{
+			pid_client = 0;
+			start = check_start(1);
 		}
 		//ft_printf("PID : %d\n", pid_client);
 	}

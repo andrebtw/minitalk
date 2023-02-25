@@ -24,6 +24,7 @@
 
 /* CONSTANTS */
 # define MALLOC_FAILURE -500
+# define CLIENT_END -1000
 
 /* FUNCTIONS */
 int	check_start(int end);

@@ -92,7 +92,7 @@ int	binary_signal(int pid, char *string)
 	usleep(50);
 	if (string_loop(pid, string) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-//	if (send_byte(pid, SEND_END, byte_size(SEND_END)) == EXIT_FAILURE)
-//		return (EXIT_FAILURE);
+	if (send_byte(pid, SEND_END, byte_size(SEND_END)) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
