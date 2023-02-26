@@ -36,7 +36,6 @@ static void psighandler(int sig)
 	user_signal = sig;
 }
 
-
 static int bitrecept(int sig, int pid_client)
 {
 	static int 	i;
@@ -73,9 +72,12 @@ static int bitrecept(int sig, int pid_client)
 		}
 		if (j == 8)
 		{
-			if (byte - 128 == 4)
+			if (byte == 4) {
 				return (ft_printf("%s", string), CLIENT_END);
-			ft_strjoin_free_char(string, (char)byte, 1);
+				ft_printf("END BYTE SIZE : %d\n", byte);
+			}
+			ft_printf("BYTE SIZE : %d\n", byte - 128);
+			ft_strjoin_free_char(string, (char)byte - 128, 1);
 			byte = 0;
 			j = 0;
 		}
@@ -102,9 +104,9 @@ int main(void)
 	signal.sa_handler = &psighandler;
 	sigaction(SIGUSR1, &signal, NULL);
 	sigaction(SIGUSR2, &signal, NULL);
-
 	while (1)
 	{
+		ft_printf("START : %d\n", start);
 		if (!start)
 			pause();
 		start = check_start(0);
@@ -118,7 +120,6 @@ int main(void)
 			pid_client = 0;
 			start = check_start(1);
 		}
-		//ft_printf("PID : %d\n", pid_client);
 	}
 	return (EXIT_SUCCESS);
 }

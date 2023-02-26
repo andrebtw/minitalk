@@ -84,7 +84,7 @@ int	binary_signal(int pid, char *string)
 
 	pid_client = getpid();
 	ft_printf("PID : %d\n", pid_client);
-	if (send_first_byte(pid) == EXIT_FAILURE)
+	if (send_first_byte(1) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	usleep(2000);
 	if (send_pid(pid_client, byte_size(pid_client), pid))
