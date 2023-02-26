@@ -23,6 +23,7 @@ void	put_bits_in_list(t_bin_list *bin_lst, char c, int byte_size)
 	while (byte_size != 8)
 	{
 		bin_lst->list[bin_lst->index] = SIGUSR1;
+		ft_printf("%d\n", bin_lst->list[bin_lst->index]);
 		bin_lst->index--;
 		byte_size++;
 	}
@@ -33,6 +34,7 @@ void	put_bits_in_list(t_bin_list *bin_lst, char c, int byte_size)
 		bin_lst->list[bin_lst->index] = SIGUSR2;
 	if (c % 2 == 0)
 		bin_lst->list[bin_lst->index] = SIGUSR1;
+	ft_printf("%d\n", bin_lst->list[bin_lst->index]);
 	bin_lst->index--;
 }
 

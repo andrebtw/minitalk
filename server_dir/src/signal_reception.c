@@ -7,7 +7,6 @@ int	check_start(int end)
 	static int i;
 	static int byte;
 
-	ft_printf("TEST \n");
 	if (end)
 	{
 		i = 0;

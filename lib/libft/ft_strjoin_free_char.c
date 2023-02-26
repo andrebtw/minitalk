@@ -2,7 +2,7 @@
 
 static void	free_strs(char const *s1, int free_s1)
 {
-	if (free_s1 == 1)
+	if (free_s1)
 		free((char *)s1);
 }
 
@@ -16,7 +16,7 @@ static	int	ft_strlen_int(const char *s)
 	return (index);
 }
 
-char	*ft_strjoin_free_char(char const *s1, char const c, int free_s1)
+char	*ft_strjoin_free_char(char const *s1, int const c, int free_s1)
 {
 	char	*r_string;
 	int		i;

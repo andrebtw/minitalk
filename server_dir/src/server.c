@@ -68,16 +68,16 @@ static int bitrecept(int sig, int pid_client)
 				byte = (byte << 1) + 0;
 			else if (sig == SIGUSR2)
 				byte = (byte << 1) + 1;
-			j++;
+	 +		j++;
 		}
 		if (j == 8)
 		{
-			if (byte == 4) {
-				return (ft_printf("%s", string), CLIENT_END);
-				ft_printf("END BYTE SIZE : %d\n", byte);
-			}
-			ft_printf("BYTE SIZE : %d\n", byte - 128);
-			ft_strjoin_free_char(string, (char)byte - 128, 1);
+			if (byte - 8 == 4)
+				return (ft_printf("%s\n", string), byte = 0,
+						string = NULL, j = 0, i = 0,
+						kill(pid_client, SIGUSR2), CLIENT_END);
+//			ft_printf("%c", byte - 128);
+			ft_strjoin_free_char(string, byte, 1);
 			byte = 0;
 			j = 0;
 		}
@@ -106,7 +106,6 @@ int main(void)
 	sigaction(SIGUSR2, &signal, NULL);
 	while (1)
 	{
-		ft_printf("START : %d\n", start);
 		if (!start)
 			pause();
 		start = check_start(0);
