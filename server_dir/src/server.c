@@ -13,6 +13,7 @@
 #include "server.h"
 
 int user_signal;
+int paused = 1;
 
 static int pid_recept(int sig, int pid_client)
 {
@@ -36,7 +37,7 @@ static void psighandler(int sig)
 	user_signal = sig;
 }
 
-static int bitrecept(int sig, int pid_client)
+static int bitrecept(int sig, int pid_client, int *begin_transmission)
 {
 	static int 	i;
 	static int 	j;
@@ -47,6 +48,11 @@ static int bitrecept(int sig, int pid_client)
 	{
 		pid_client = pid_recept(sig, pid_client);
 		i++;
+		if (i == 32)
+		{
+			*begin_transmission = 1;
+			ft_printf("PID : %d\n", pid_client);
+		}
 		return (pid_client);
 	}
 	else if (i >= 32)
@@ -73,15 +79,24 @@ static int bitrecept(int sig, int pid_client)
 		if (j == 8)
 		{
 			if (byte - 8 == 4)
-				return (ft_printf("%s\n", string), byte = 0,
-						string = NULL, j = 0, i = 0,
-						kill(pid_client, SIGUSR2), CLIENT_END);
-//			ft_printf("%c", byte - 128);
-			ft_strjoin_free_char(string, byte, 1);
+			{
+
+//				ft_printf("%s\n", string);
+				byte = 0;
+				string = NULL;
+				j = 0;
+				i = 0;
+				usleep(500);
+				kill(pid_client, SIGUSR2);
+				return (CLIENT_END);
+			}
+			ft_printf("%c", byte - 128);
+//			string = ft_strjoin_free_char(string, byte - 128, 1);
 			byte = 0;
 			j = 0;
 		}
-		usleep(70);
+//		ft_printf("PAUSED : %d\n", paused);
+//		paused++;
 		kill(pid_client, SIGUSR1);
 	}
 	return (pid_client);
@@ -92,12 +107,14 @@ int main(void)
 	struct sigaction signal;
 	int pid_client;
 	int start;
+	int begin_transmission;
 
 	user_signal = 0;
 	pid_client = 0;
+	begin_transmission = 0;
 	start = 0;
 	ft_printf("%d\n", (getpid()));
-	signal.sa_flags = SA_RESTART;
+	signal.sa_flags = SA_RESTART | SA_SIGINFO;
 	sigemptyset(&signal.sa_mask);
 	sigaddset(&signal.sa_mask, SIGUSR1);
 	sigaddset(&signal.sa_mask, SIGUSR2);
@@ -111,13 +128,12 @@ int main(void)
 		start = check_start(0);
 		if (start)
 		{
-			pause();
-			pid_client = bitrecept(user_signal, pid_client);
-		}
-		if (pid_client == CLIENT_END)
-		{
-			pid_client = 0;
-			start = check_start(1);
+			pid_client = bitrecept(user_signal, pid_client, &begin_transmission);
+			if (pid_client == CLIENT_END)
+			{
+				pid_client = 0;
+				start = check_start(1);
+			}
 		}
 	}
 	return (EXIT_SUCCESS);

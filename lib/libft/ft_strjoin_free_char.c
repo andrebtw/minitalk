@@ -1,4 +1,5 @@
 #include "libft.h"
+#include "../ft_printf/ft_printf.h"
 
 static void	free_strs(char const *s1, int free_s1)
 {

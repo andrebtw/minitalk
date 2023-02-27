@@ -12,6 +12,8 @@
 
 #include "client.h"
 
+int paused = 1;
+
 typedef struct s_bin_list
 {
 	int	*list;
@@ -23,7 +25,7 @@ void	put_bits_in_list(t_bin_list *bin_lst, char c, int byte_size)
 	while (byte_size != 8)
 	{
 		bin_lst->list[bin_lst->index] = SIGUSR1;
-		ft_printf("%d\n", bin_lst->list[bin_lst->index]);
+//		ft_printf("%d\n", bin_lst->list[bin_lst->index]);
 		bin_lst->index--;
 		byte_size++;
 	}
@@ -34,7 +36,7 @@ void	put_bits_in_list(t_bin_list *bin_lst, char c, int byte_size)
 		bin_lst->list[bin_lst->index] = SIGUSR2;
 	if (c % 2 == 0)
 		bin_lst->list[bin_lst->index] = SIGUSR1;
-	ft_printf("%d\n", bin_lst->list[bin_lst->index]);
+//	ft_printf("%d\n", bin_lst->list[bin_lst->index]);
 	bin_lst->index--;
 }
 
@@ -46,11 +48,15 @@ int send_list(int pid, t_bin_list *bin_lst)
 	i = 7;
 	while (i >= 0)
 	{
-		usleep(70);
+//		ft_printf("PAUSED : %d\n", paused);
+//		paused++;
 		kill_nb = kill(pid, bin_lst->list[i]);
-		if (kill_nb == -1)
+		if (kill_nb == -1) {
 			return (EXIT_FAILURE);
-		pause();
+		}
+		usleep(200);
+//		ft_printf("AFTER PAUSE : %d\n", paused);
+//		ft_printf("BIT : %d\n", i);
 		i--;
 	}
 	return (EXIT_SUCCESS);
