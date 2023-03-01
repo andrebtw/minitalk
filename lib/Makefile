@@ -77,7 +77,7 @@ SRCS = 	$(LIBFT_DIR)/ft_atoi.c \
 
 
 OBJS = $(SRCS:.c=.o)
-HEADER = libft_updated.h
+HEADER = libft_updated.h libft/libft.h get_next_line/get_next_line.h ft_printf/ft_printf.h
 
 ### FINAL COMPILATION FILE ###
 NAME = libft_updated.a
