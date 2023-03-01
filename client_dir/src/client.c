@@ -17,6 +17,11 @@ int	sig_recept;
 static void	handler(int sig)
 {
 	sig_recept = sig;
+	if (sig == SIGUSR2)
+	{
+		ft_printf("%sMessage sent successfully. %s\n", KGREEN, KNORMAL);
+		exit (EXIT_SUCCESS);
+	}
 }
 
 int main(int argc, char **argv)

@@ -22,12 +22,25 @@ typedef struct s_bin_list
 
 void	wait_signal(void)
 {
+	int time = 0;
+
 	if (sig_recept == SIGUSR1)
 	{
 		sig_recept = 0;
 		return ;
 	}
-	pause();
+	while (time < 2000000)
+	{
+		if (sig_recept == SIGUSR1)
+		{
+			sig_recept = 0;
+			return ;
+		}
+		time = time + 100;
+		usleep(100);
+	}
+	ft_printf("%sServer is not responding.%s\n", KRED, KNORMAL);
+	exit(EXIT_FAILURE);
 }
 
 void	put_bits_in_list(t_bin_list *bin_lst, char c, int byte_size)
