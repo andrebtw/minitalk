@@ -22,11 +22,15 @@
 /* HEADER FILES */
 # include "../../lib/libft_updated.h"
 
-/* CONSTANTS */
-# define MALLOC_FAILURE -500
-# define CLIENT_END -1000
+/* COLORS */
+# define KNORMAL "\x1B[0m"
+# define KRED "\x1B[31m"
+# define KGREEN "\x1B[32m"
+# define KYELLOW "\x1B[33m"
+# define KBLUE "\x1B[34m"
+# define KWHITE "\x1B[37m"
 
-/* FUNCTIONS */
-int	check_start(int end);
+# define SEND_END 4
+# define SEND_START 2
 
 #endif

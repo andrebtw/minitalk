@@ -21,7 +21,6 @@ SRC_DIR = src
 
 #### SOURCE FILES ####
 SRCS =	$(SRC_DIR)/server.c \
-		$(SRC_DIR)/signal_reception.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -14,6 +14,12 @@
 
 extern int sig_recept;
 
+typedef struct s_bin_list
+{
+	int	*list;
+	int	index;
+}	t_bin_list;
+
 void	wait_signal(void)
 {
 	if (sig_recept == SIGUSR1)
@@ -24,18 +30,11 @@ void	wait_signal(void)
 	pause();
 }
 
-typedef struct s_bin_list
-{
-	int	*list;
-	int	index;
-}	t_bin_list;
-
 void	put_bits_in_list(t_bin_list *bin_lst, char c, int byte_size)
 {
 	while (byte_size != 8)
 	{
 		bin_lst->list[bin_lst->index] = SIGUSR1;
-//		ft_printf("%d\n", bin_lst->list[bin_lst->index]);
 		bin_lst->index--;
 		byte_size++;
 	}
@@ -46,7 +45,6 @@ void	put_bits_in_list(t_bin_list *bin_lst, char c, int byte_size)
 		bin_lst->list[bin_lst->index] = SIGUSR2;
 	if (c % 2 == 0)
 		bin_lst->list[bin_lst->index] = SIGUSR1;
-//	ft_printf("%d\n", bin_lst->list[bin_lst->index]);
 	bin_lst->index--;
 }
 
@@ -57,27 +55,32 @@ int send_list(int pid, t_bin_list *bin_lst)
 	i = 7;
 	while (i >= 0)
 	{
-//		ft_printf("PAUSED : %d\n", paused);
-//		paused++;
 		sig_recept = 0;
 		if (kill(pid, bin_lst->list[i]) == -1)
-			return (EXIT_FAILURE);
-//		usleep(200);
-//		ft_printf("AFTER PAUSE : %d\n", paused);
-//		ft_printf("BIT : %d\n", i);
+			return (ft_printf("%sServer is not responding. %s\n",
+							  KRED, KNORMAL),
+									  EXIT_FAILURE);
 		wait_signal();
 		i--;
 	}
 	return (EXIT_SUCCESS);
 }
 
-int send_byte(int pid, char c, int byte_size)
+int send_byte(int pid, int c, int byte_size)
 {
 	t_bin_list bin_lst;
 
+	if (!(c >= 0 && c <= 127))
+	{
+		ft_printf("%sOnly standard ASCII characters are supported. %s\n", KRED, KNORMAL);
+		return (EXIT_FAILURE);
+	}
 	bin_lst.list = (int *) malloc (sizeof(int) * 8);
 	if (!bin_lst.list)
-		return (MALLOC_FAILURE);
+	{
+		ft_printf("%sMalloc failed. %s\n", KRED, KNORMAL);
+		return (EXIT_FAILURE);
+	}
 	bin_lst.index = 7;
 	put_bits_in_list(&bin_lst, c, byte_size);
 	if (send_list(pid, &bin_lst))

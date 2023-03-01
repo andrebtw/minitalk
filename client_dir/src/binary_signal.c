@@ -12,6 +12,8 @@
 
 #include "client.h"
 
+extern int sig_recept;
+
 size_t byte_size(int nb)
 {
 	size_t counter;
@@ -38,16 +40,29 @@ int string_loop(int pid, char *string)
 	return (EXIT_SUCCESS);
 }
 
+static void	check_end(void)
+{
+	if (sig_recept == SIGUSR2)
+	{
+		ft_printf("%sMessage sent successfully !%s\n", KGREEN, KNORMAL);
+		sig_recept = 0;
+	}
+	else
+	{
+		ft_printf("%sServer is not responding.%s\n", KRED, KNORMAL);
+		sig_recept = 0;
+		exit(EXIT_FAILURE);
+	}
+}
+
 int	binary_signal(int pid, char *string)
 {
-	int pid_client;
-
-	pid_client = getpid();
-	ft_printf("PID : %d\n", pid_client);
-	usleep(2000);
+	if (send_byte(pid, SEND_START, byte_size(SEND_START)) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	if (string_loop(pid, string) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-//	if (send_byte(pid, SEND_END, byte_size(SEND_END)) == EXIT_FAILURE)
-//		return (EXIT_FAILURE);
+	if (send_byte(pid, SEND_END, byte_size(SEND_END)) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	check_end();
 	return (EXIT_SUCCESS);
 }

@@ -17,11 +17,6 @@ int	sig_recept;
 static void	handler(int sig)
 {
 	sig_recept = sig;
-	if (sig == SIGUSR2)
-	{
-		ft_printf("Message sent successfully !\n");
-		exit(EXIT_SUCCESS);
-	}
 }
 
 int main(int argc, char **argv)
@@ -32,16 +27,16 @@ int main(int argc, char **argv)
 	signal.sa_flags = SA_RESTART;
 	signal.sa_handler = &handler;
 	sigemptyset(&signal.sa_mask);
-//	sigaddset(&signal.sa_mask, SIGUSR1);
-//	sigaddset(&signal.sa_mask, SIGUSR2);
+	sigaddset(&signal.sa_mask, SIGUSR1);
+	sigaddset(&signal.sa_mask, SIGUSR2);
 	sigaction(SIGUSR1, &signal, NULL);
 	sigaction(SIGUSR2, &signal, NULL);
 	if (argc != 3)
-		return (EXIT_FAILURE);
+		return (ft_printf("%sWrong number of arguments. %s\n", KRED, KNORMAL), EXIT_FAILURE);
 	if (!ft_atoi(argv[1]))
-		return (EXIT_FAILURE);
+		return (ft_printf("%sWrong PID. %s\n", KRED, KNORMAL), EXIT_FAILURE);
 	if (!argv[2][0])
-		return (EXIT_FAILURE);
+		return (ft_printf("%sEmpty message. %s\n", KRED, KNORMAL), EXIT_FAILURE);
 	if (binary_signal(ft_atoi(argv[1]), argv[2]))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);

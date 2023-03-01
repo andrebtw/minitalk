@@ -34,7 +34,6 @@ char	*ft_strjoin_free_char(char const *s1, int const c, int free_s1)
 		i++;
 		j++;
 	}
-	i = 0;
 	r_string[j] = c;
 	j++;
 	r_string[j] = '\0';

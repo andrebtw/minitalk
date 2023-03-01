@@ -24,11 +24,19 @@
 
 /* CONSTANTS */
 # define MALLOC_FAILURE -2
-# define SEND_START 1
 # define SEND_END 4
+# define SEND_START 2
+
+/* COLORS */
+# define KNORMAL "\x1B[0m"
+# define KRED "\x1B[31m"
+# define KGREEN "\x1B[32m"
+# define KYELLOW "\x1B[33m"
+# define KBLUE "\x1B[34m"
+# define KWHITE "\x1B[37m"
 
 /* FUNCTIONS */
 int	binary_signal(int pid, char *string);
-int send_byte(int pid, char c, int byte_size);
+int send_byte(int pid, int c, int byte_size);
 
 #endif
