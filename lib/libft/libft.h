@@ -6,7 +6,7 @@
 /*   By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 15:46:40 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/02/22 13:39:49 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/03/01 23:57:21 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	*ft_memset(void *s, int c, size_t n);
 // String manipulation //
 // strjoin : joins both strings ; ex : "hello", "world" ; value : "helloworld"
 char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strjoin_free(char const *s1, char const *s2, int free_s1, int free_s2);
+char	*ft_strjoin_free(char const *s1, char const *s2,
+			int free_s1, int free_s2);
 char	*ft_strjoin_free_char(char const *s1, int const c, int free_s1);
 // strlcat : appends src to the end of dst. 
 // It will append at most size - strlen(dst) - 1 bytes

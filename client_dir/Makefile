@@ -6,7 +6,7 @@
 #    By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 17:23:09 by anrodri2          #+#    #+#              #
-#    Updated: 2023/03/01 20:22:11 by anrodri2         ###   ########.fr        #
+#    Updated: 2023/03/01 20:31:06 by anrodri2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,11 +36,11 @@ LIBFT_COMPILED = ../lib/libft_updated.a
 NAME = ../client
 
 #### RULES ####
-$(NAME):	$(OBJS) $(HEADER)
+$(NAME):	$(OBJS) $(HEADER) $(LIBFT_COMPILED)
 			cd .. && cd lib && $(MAKE) all
 			$(CC) $(CFLAGS) $(OBJS) $(LIBFT_COMPILED) -o $(NAME) -g
 
-%.o: %.c	$(HEADER) Makefile
+%.o: %.c	$(HEADER) Makefile $(LIBFT_COMPILED)
 			$(CC) $(CFLAGS) -c $< -o $@ -g
 
 all:		$(NAME)

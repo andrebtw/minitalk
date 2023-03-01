@@ -12,7 +12,7 @@
 
 #include "client.h"
 
-extern int sig_recept;
+extern int	g_sig_recept;
 
 typedef struct s_bin_list
 {
@@ -22,18 +22,19 @@ typedef struct s_bin_list
 
 void	wait_signal(void)
 {
-	int time = 0;
+	int	time;
 
-	if (sig_recept == SIGUSR1)
+	time = 0;
+	if (g_sig_recept == SIGUSR1)
 	{
-		sig_recept = 0;
+		g_sig_recept = 0;
 		return ;
 	}
 	while (time < 2000000)
 	{
-		if (sig_recept == SIGUSR1)
+		if (g_sig_recept == SIGUSR1)
 		{
-			sig_recept = 0;
+			g_sig_recept = 0;
 			return ;
 		}
 		time = time + 100;
@@ -61,31 +62,32 @@ void	put_bits_in_list(t_bin_list *bin_lst, char c, int byte_size)
 	bin_lst->index--;
 }
 
-int send_list(int pid, t_bin_list *bin_lst)
+int	send_list(int pid, t_bin_list *bin_lst)
 {
-	int i;
+	int	i;
 
 	i = 7;
 	while (i >= 0)
 	{
-		sig_recept = 0;
+		g_sig_recept = 0;
 		if (kill(pid, bin_lst->list[i]) == -1)
 			return (ft_printf("%sServer is not responding. %s\n",
-							  KRED, KNORMAL),
-									  EXIT_FAILURE);
+					KRED, KNORMAL),
+				EXIT_FAILURE);
 		wait_signal();
 		i--;
 	}
 	return (EXIT_SUCCESS);
 }
 
-int send_byte(int pid, int c, int byte_size)
+int	send_byte(int pid, int c, int byte_size)
 {
-	t_bin_list bin_lst;
+	t_bin_list	bin_lst;
 
 	if (!(c >= 0 && c <= 127))
 	{
-		ft_printf("%sOnly standard ASCII characters are supported. %s\n", KRED, KNORMAL);
+		ft_printf("%sOnly standard ASCII characters are supported. %s\n",
+			KRED, KNORMAL);
 		return (EXIT_FAILURE);
 	}
 	bin_lst.list = (int *) malloc (sizeof(int) * 8);

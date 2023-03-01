@@ -32,5 +32,6 @@
 
 # define SEND_END 4
 # define SEND_START 2
+# define MALLOC_FAILURE -2
 
 #endif
