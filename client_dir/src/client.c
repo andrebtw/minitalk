@@ -12,8 +12,11 @@
 
 #include "client.h"
 
+int	sig_recept;
+
 static void	handler(int sig)
 {
+	sig_recept = sig;
 	if (sig == SIGUSR2)
 	{
 		ft_printf("Message sent successfully !\n");
@@ -25,11 +28,12 @@ int main(int argc, char **argv)
 {
 	struct sigaction signal;
 
+	sig_recept = 0;
 	signal.sa_flags = SA_RESTART;
 	signal.sa_handler = &handler;
 	sigemptyset(&signal.sa_mask);
-	sigaddset(&signal.sa_mask, SIGUSR1);
-	sigaddset(&signal.sa_mask, SIGUSR2);
+//	sigaddset(&signal.sa_mask, SIGUSR1);
+//	sigaddset(&signal.sa_mask, SIGUSR2);
 	sigaction(SIGUSR1, &signal, NULL);
 	sigaction(SIGUSR2, &signal, NULL);
 	if (argc != 3)

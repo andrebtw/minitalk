@@ -12,7 +12,17 @@
 
 #include "client.h"
 
-int paused = 1;
+extern int sig_recept;
+
+void	wait_signal(void)
+{
+	if (sig_recept == SIGUSR1)
+	{
+		sig_recept = 0;
+		return ;
+	}
+	pause();
+}
 
 typedef struct s_bin_list
 {
@@ -43,20 +53,19 @@ void	put_bits_in_list(t_bin_list *bin_lst, char c, int byte_size)
 int send_list(int pid, t_bin_list *bin_lst)
 {
 	int i;
-	int kill_nb;
 
 	i = 7;
 	while (i >= 0)
 	{
 //		ft_printf("PAUSED : %d\n", paused);
 //		paused++;
-		kill_nb = kill(pid, bin_lst->list[i]);
-		if (kill_nb == -1) {
+		sig_recept = 0;
+		if (kill(pid, bin_lst->list[i]) == -1)
 			return (EXIT_FAILURE);
-		}
-		usleep(200);
+//		usleep(200);
 //		ft_printf("AFTER PAUSE : %d\n", paused);
 //		ft_printf("BIT : %d\n", i);
+		wait_signal();
 		i--;
 	}
 	return (EXIT_SUCCESS);
