@@ -6,7 +6,7 @@
 /*   By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 13:46:01 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/03/01 20:37:23 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/03/02 04:36:09 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,18 @@ int	main(int argc, char **argv)
 {
 	struct sigaction	signal;
 
+	usleep(1000 * 5);
 	g_sig_recept = 0;
 	signal.sa_flags = SA_RESTART;
 	signal.sa_handler = &handler;
-	sigemptyset(&signal.sa_mask);
+	if (sigemptyset(&signal.sa_mask) == -1)
+		return (EXIT_FAILURE);
 	sigaddset(&signal.sa_mask, SIGUSR1);
 	sigaddset(&signal.sa_mask, SIGUSR2);
-	sigaction(SIGUSR1, &signal, NULL);
-	sigaction(SIGUSR2, &signal, NULL);
+	if (sigaction(SIGUSR1, &signal, NULL) == -1)
+		return (EXIT_FAILURE);
+	if (sigaction(SIGUSR2, &signal, NULL) == -1)
+		return (EXIT_FAILURE);
 	if (argc != 3)
 		return (ft_printf("%sWrong number of arguments. %s\n", KRED, KNORMAL),
 			EXIT_FAILURE);

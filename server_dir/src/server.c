@@ -6,7 +6,7 @@
 /*   By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 13:46:03 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/03/02 00:01:43 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/03/02 04:33:27 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	char_receive(int *byte_index, int *byte, char **string, siginfo_t *info)
 			*byte_index = 0;
 			*byte = 0;
 			if (kill(info->si_pid, SIGUSR2) == -1)
-				ft_printf("%sError while sending signal to client. %s\n",
+				ft_printf("%s\nError while sending signal to client. %s\n",
 					KRED, KNORMAL);
 			return ;
 		}
@@ -95,7 +95,7 @@ static void	psighandler(int sig, siginfo_t *info, void *ucontext)
 	usleep(2);
 	if (kill(info->si_pid, SIGUSR1) == -1)
 	{
-		ft_printf("%sError while sending signal to client. %s\n", KRED, KNORMAL);
+		ft_printf("%s\nError while sending signal to client. %s\n", KRED, KNORMAL);
 		if (string)
 			free(string);
 		string = NULL;

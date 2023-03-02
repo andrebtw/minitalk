@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_string.c                                  :+:      :+:    :+:   */
+/*   ft_strlen_printf.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 17:09:34 by anrodri2          #+#    #+#             */
-/*   Updated: 2022/12/01 16:45:58 by anrodri2         ###   ########.fr       */
+/*   Created: 2022/11/28 17:11:19 by anrodri2          #+#    #+#             */
+/*   Updated: 2023/03/02 03:49:39 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_print_string(va_list args)
+size_t	ft_strlen_p(char *string)
 {
-	char	*print_s;
+	size_t	index;
 
-	print_s = va_arg(args, char *);
-	if (!print_s)
-		return (NULL_V);
-	if (ft_putstr_fd_p(print_s, 1) == -1)
-		return (WRITE_ERROR);
-	if (ft_strlen_p(print_s))
-		return (ft_strlen_p(print_s));
-	return (EMPTY_V);
+	index = 0;
+	if (!string)
+		return (0);
+	while (string[index])
+		index++;
+	return (index);
 }

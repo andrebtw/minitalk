@@ -6,7 +6,7 @@
 /*   By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 15:46:40 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/03/01 23:57:21 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/03/02 03:37:24 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdint.h>
+# include <stdarg.h>
+
+/* --------------------------LIBFT---------------------------- */
 
 // Convertion //
 // atoi : Converts a string to an int
@@ -114,5 +117,55 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+
+/* --------------GET_NEXT_LINE----------------- */
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
+
+// SIGNALS //
+# define NOT_READ -10
+
+char	*get_next_line(int fd);
+void	*ft_calloc_gnl(size_t count, size_t size);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+size_t	strlen_gnl(const char *s, int check_if_endl);
+void	failed_malloc(char *temp_string, char *r_string);
+char	*static_init(int free_static, char *savd_s, char *r_s, char *temp_s);
+
+/* -----------------------FT_PRINTF-------------------- */
+
+// ERROR CODES //
+# define EMPTY_V -1
+# define NULL_V -2
+# define WRITE_ERROR -3
+# define NO_FORMAT_SPEC -4
+
+// MODIFIED LIBFT FUNCTIONS //
+int		ft_putchar_fd_p(char c, int fd);
+int		ft_putstr_fd_p(char *s, int fd);
+int		ft_putnbr_fd_p(int n, int fd);
+int		ft_putnbr_u_fd(unsigned int n, int fd);
+size_t	ft_strlen_p(char *string);
+
+// MAIN FUNCTIONS //
+int		ft_printf(const char *s, ...);
+int		ft_null_found(void);
+int		ft_print_char(va_list args);
+int		ft_print_string(va_list args);
+int		ft_print_pointer_hex(va_list args);
+int		ft_print_pourcentage(void);
+int		ft_print_decimals(va_list args);
+int		ft_print_u_decimals(va_list args);
+int		ft_print_hex_lower(va_list args);
+int		ft_print_hex(va_list args);
+
+// ADDITIONAL FUNCTIONS //
+int		ft_putbase_fd_p(unsigned long n, int fd, char *base);
+int		ft_sizeof_nb_base_int(long number, char *base);
+int		ft_sizeof_nb_base_u(unsigned long number, char *base);
+int		ft_sizeof_nb_base_u_int(unsigned int number, char *base);
+int		ft_putbase_int_fd(unsigned int n, int fd, char *base);
 
 #endif

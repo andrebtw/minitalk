@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_null_found.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 17:11:19 by anrodri2          #+#    #+#             */
-/*   Updated: 2022/11/29 17:16:00 by anrodri2         ###   ########.fr       */
+/*   Created: 2022/11/29 17:21:26 by anrodri2          #+#    #+#             */
+/*   Updated: 2023/03/02 03:48:30 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-size_t	ft_strlen_p(char *string)
+int	ft_null_found(void)
 {
-	size_t	index;
-
-	index = 0;
-	if (!string)
-		return (0);
-	while (string[index])
-		index++;
-	return (index);
+	if (write(1, "(null)", 6) == -1)
+		return (-1);
+	return (6);
 }
