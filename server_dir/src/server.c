@@ -6,7 +6,7 @@
 /*   By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 13:46:03 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/03/02 04:33:27 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/03/02 05:13:36 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ void	check_pid_string(siginfo_t *info, char **string,
 	if (!(*string))
 		*string = ft_calloc(1, sizeof(char));
 	if (!(*string))
+	{
+		ft_printf(MALLOC_ERR_MSG, KRED, KNORMAL);
 		exit(MALLOC_FAILURE);
+	}
 }
 
 int	bin_to_dec(int *byte, int sig, int byte_index)
@@ -70,13 +73,15 @@ void	char_receive(int *byte_index, int *byte, char **string, siginfo_t *info)
 			*byte_index = 0;
 			*byte = 0;
 			if (kill(info->si_pid, SIGUSR2) == -1)
-				ft_printf("%s\nError while sending signal to client. %s\n",
-					KRED, KNORMAL);
+				ft_printf(ERROR_MSG, KRED, KNORMAL);
 			return ;
 		}
 		*string = ft_strjoin_free_char(*string, (char)*byte, 1);
 		if (!(*string))
+		{
+			ft_printf(MALLOC_ERR_MSG, KRED, KNORMAL);
 			exit(MALLOC_FAILURE);
+		}
 		*byte_index = 0;
 		*byte = 0;
 	}
@@ -95,7 +100,7 @@ static void	psighandler(int sig, siginfo_t *info, void *ucontext)
 	usleep(2);
 	if (kill(info->si_pid, SIGUSR1) == -1)
 	{
-		ft_printf("%s\nError while sending signal to client. %s\n", KRED, KNORMAL);
+		ft_printf(ERROR_MSG, KRED, KNORMAL);
 		if (string)
 			free(string);
 		string = NULL;

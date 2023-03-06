@@ -6,7 +6,7 @@
 /*   By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:06:25 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/03/02 03:58:17 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/03/02 05:13:11 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@
 # define KYELLOW "\x1B[33m"
 # define KBLUE "\x1B[34m"
 # define KWHITE "\x1B[37m"
+
+/* ERROR MESSAGES */
+# define ERROR_MSG "%s\nError while sending signal to client. %s\n"
+# define MALLOC_ERR_MSG "%sMalloc failed. %s\n"
 
 # define SEND_END 4
 # define SEND_START 2
