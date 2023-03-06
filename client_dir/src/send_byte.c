@@ -6,7 +6,7 @@
 /*   By: anrodri2 <anrodri2@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 15:27:36 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/02/23 15:27:36 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/03/06 20:15:49 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	put_bits_in_list(t_bin_list *bin_lst, char c, int byte_size)
 	put_bits_in_list(bin_lst, c / 2, 8);
 	if (c % 2 == 1)
 		bin_lst->list[bin_lst->index] = SIGUSR2;
-	if (c % 2 == 0)
+	else if (c % 2 == 0)
 		bin_lst->list[bin_lst->index] = SIGUSR1;
 	bin_lst->index--;
 }

@@ -6,7 +6,7 @@
 /*   By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:56:42 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/03/01 23:56:45 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/03/06 20:05:43 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_strjoin_free_char(char const *s1, int const c, int free_s1)
 	j = 0;
 	r_string = (char *) malloc (ft_strlen_int(s1) + 2);
 	if (r_string == NULL)
-		return (NULL);
+		return (free_strs(s1, free_s1), NULL);
 	while (s1[i] != '\0')
 	{
 		r_string[j] = s1[i];

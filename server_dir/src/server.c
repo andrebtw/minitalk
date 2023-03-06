@@ -6,7 +6,7 @@
 /*   By: anrodri2 <anrodri2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 13:46:03 by anrodri2          #+#    #+#             */
-/*   Updated: 2023/03/02 05:13:36 by anrodri2         ###   ########.fr       */
+/*   Updated: 2023/03/06 20:09:28 by anrodri2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ static void	psighandler(int sig, siginfo_t *info, void *ucontext)
 	static int	byte;
 	static char	*string;
 
-	check_pid_string(info, &string, &byte, &byte_index);
 	(void)ucontext;
+	check_pid_string(info, &string, &byte, &byte_index);
 	byte_index = bin_to_dec(&byte, sig, byte_index);
 	char_receive(&byte_index, &byte, &string, info);
 	usleep(2);
